@@ -1,10 +1,17 @@
 pipeline {
-    agent { label 'maven' }
-    stages {
-        stage('Hello World-Test') {
-            steps {
-                echo "git branch: 'main', credentialsId: 'abcd', url: 'https://github.com/Rohini5353/tweet-trend-new.git'"
-            }
+    agent { 
+        node {
+            label 'maven'
         }
     }
+    environment {
+        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
+    }
+    stages {
+        stage("Build") {
+            steps {
+                sh 'mvn clean deploy'
+            }
+        }
+    }              
 }
